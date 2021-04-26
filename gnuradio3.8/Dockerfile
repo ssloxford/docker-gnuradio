@@ -7,6 +7,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y install software-properties-common \ 
 	git build-essential cmake nano mousepad 
 
+#python tools
+RUN apt-get update && apt-get -y install python3-pip
+
 #set up ssh for easy docker X-forwarding
 RUN apt-get -y install openssh-server
 RUN sed -i "s/.*PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
@@ -24,6 +27,9 @@ RUN apt-get install -y git cmake g++ libboost-all-dev \
                         libzmq3-dev python3-yaml python3-click python3-click-plugins \
                         python3-zmq python3-scipy python3-gi python3-gi-cairo \
                         gobject-introspection gir1.2-gtk-3.0
+
+#additional dependencies I've found
+RUN apt-get install -y liborc-0.4-dev
 
 #install from the gnuradio ppa + uhd + swig (for OOT modules)
 RUN add-apt-repository ppa:gnuradio/gnuradio-releases-3.8 && apt-get update
